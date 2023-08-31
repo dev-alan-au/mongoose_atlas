@@ -1,20 +1,21 @@
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
+const uniqueValidator = require("mongoose-unique-validator");
 
-var UserSchema = new mongoose.Schema(
+const UserSchema = new mongoose.Schema(
   {
     username: {
       type: String,
       lowercase: true,
       required: [true, "can't be blank"],
       match: [/^[a-zA-Z0-9]+$/, "is invalid"],
-      index: true,
+      index: true, // for optimisation
     },
     email: {
       type: String,
       lowercase: true,
       required: [true, "can't be blank"],
       match: [/\S+@\S+\.\S+/, "is invalid"],
-      index: true,
+      index: true, // for optimisation
     },
     bio: String,
     image: String,
@@ -23,5 +24,7 @@ var UserSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+UserSchema.plugin(uniqueValidator, { message: "is already taken." });
 
 mongoose.model("User", UserSchema);
