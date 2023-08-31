@@ -1,9 +1,13 @@
+var express = require("express");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser").json();
+// const https = require("https");
+// const http = require("http");
 require("dotenv").config();
 require("./models/User");
 require("./config/passport");
 
-main().catch((err) => console.log(err));
+const authRouter = require("./routes/auth");
 
 async function main() {
   const username = process.env.DB_ADMIN_USERNAME;
@@ -13,3 +17,20 @@ async function main() {
 
   console.log("Connected to Atlas");
 }
+
+const app = express();
+// app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser);
+app.use(express.json());
+app.use("/api/auth", authRouter);
+
+// http.createServer(app).listen(httpPort);
+// https.createServer(options, app).listen(443)
+
+// Creating server
+const port = 3000;
+main().catch((err) => console.log(err));
+
+app.listen(port, () => {
+  console.log("Server running at port: " + port);
+});
