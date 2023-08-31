@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
 const crypto = require("node:crypto");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const UserSchema = new mongoose.Schema(
   {
@@ -42,6 +44,21 @@ UserSchema.methods.validatePassword = function (password) {
     .pbkdf2Sync(password, this.salt, 10000, 512, "sha512")
     .toString("hex");
   return this.hash === hash;
+};
+
+const secret = process.env.JWT_SECRET;
+
+UserSchema.methods.generateJWT = function () {
+  const today = new Date();
+  const expiry = new Date().setDate(today.getDate() + 60);
+  return jwt.sign(
+    {
+      id: this._id,
+      username: this.username,
+      exp: parseInt(expiry.getTime() / 1000),
+    },
+    secret
+  );
 };
 
 mongoose.model("User", UserSchema);
