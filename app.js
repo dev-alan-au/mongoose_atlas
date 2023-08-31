@@ -1,7 +1,9 @@
-const mongoose = require('mongoose');
-require('dotenv').config();
+const mongoose = require("mongoose");
+require("dotenv").config();
+require("./models/User");
+require("./config/passport");
 
-main().catch(err => console.log(err));
+main().catch((err) => console.log(err));
 
 async function main() {
   const username = process.env.DB_ADMIN_USERNAME;
@@ -9,6 +11,5 @@ async function main() {
   const connectionStr = `mongodb+srv://${username}:${password}@cluster0.rxomr5o.mongodb.net/?retryWrites=true&w=majority`;
   await mongoose.connect(connectionStr);
 
-  console.log('Connected to Atlas');
+  console.log("Connected to Atlas");
 }
-

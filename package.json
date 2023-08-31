@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon ./app"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +13,8 @@
     "dotenv": "^16.3.1",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.5.0",
-    "mongoose-unique-validator": "^4.0.0"
+    "mongoose-unique-validator": "^4.0.0",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0"
   }
 }
