@@ -32,11 +32,8 @@ function getTokenFromHeader(req) {
 // };
 
 router.post("/login", async (req, res) => {
-  // Find user with requested email
-  console.log(req.body);
   const user = await User.findOne({ email: req.body.email }).exec();
 
-  console.log({ user });
   if (user === null) {
     return res.status(400).send({
       message: "User not found.",
@@ -54,5 +51,4 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// module.exports = auth;
 module.exports = router;
