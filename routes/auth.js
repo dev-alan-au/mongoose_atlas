@@ -38,17 +38,15 @@ router.post("/login", async (req, res) => {
     return res.status(400).send({
       message: "User not found.",
     });
-  } else {
-    if (user.validatePassword(req.body.password)) {
-      return res.status(201).send({
-        message: "User Logged In",
-      });
-    } else {
-      return res.status(400).send({
-        message: "Wrong Password",
-      });
-    }
   }
+  if (user.validatePassword(req.body.password)) {
+    return res.status(201).send({
+      message: "User Logged In",
+    });
+  }
+  return res.status(400).send({
+    message: "Wrong Password",
+  });
 });
 
 module.exports = router;

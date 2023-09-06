@@ -8,7 +8,7 @@ require("./models/User");
 require("./config/passport");
 
 const authRouter = require("./routes/auth");
-const registrationRouter = require("./routes/signup");
+const userRouter = require("./routes/user");
 
 async function main() {
   const username = process.env.DB_ADMIN_USERNAME;
@@ -24,7 +24,7 @@ const app = express();
 app.use(bodyParser);
 app.use(express.json());
 app.use("/api/auth", authRouter);
-app.use("/api/user", registrationRouter);
+app.use("/api/user", userRouter);
 
 // http.createServer(app).listen(httpPort);
 // https.createServer(options, app).listen(443)
